@@ -1,0 +1,15 @@
+.row {
+    display: flex;
+    width: 100%;
+}
+
+.tile {
+    background:forestgreen;
+    margin: 1px;
+    width: 0.5rem;
+    height: 0.5rem;    
+}
+
+.has-river .tile {
+    background: blue;  
+}
