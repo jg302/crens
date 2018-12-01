@@ -5,7 +5,7 @@ import { generateMap } from '../../functions/generateRiver';
 import './map.css';
 
 const Map = () => {
-    const mapData = {x: 40, y: 40, river: {startY: 20, endY: 26}};
+    const mapData = {x: 80, y: 80, river: {startY: 15, endY: 30}};
     const mapRows = generateMap(mapData);
 
 return (
