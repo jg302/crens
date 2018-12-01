@@ -3,22 +3,25 @@
 
 export const generateMap = mapData => {
   
+  let mapRows = [];
   let mapTiles = [];
   const riverPitch = Math.abs((mapData.river.startY - 1) - mapData.river.endY);
   const riverTilesPerRow = Math.round(mapData.y / riverPitch);
-  let counter = 0;
-    
+  let riverOffset = 0;
+
   Array(mapData.y).fill(0).map((item, yAxis) => {
     
-    if (yAxis >= mapData.river.startY && yAxis <= mapData.river.endY) {
+    Array(mapData.x).fill(0).map((item, xAxis) => {
 
-  Array(riverTilesPerRow).fill(0).map((item, xAxis) => {
-      return (mapTiles.push({y: yAxis, x: xAxis + riverTilesPerRow * counter, isRiverTile: true})); 
+      if (yAxis <= mapData.river.startY && xAxis <= riverTilesPerRow + riverOffset) {
+        mapTiles.push({x: xAxis,  y: yAxis, isRiverTile: true})
+      } else {
+        mapTiles.push({x: xAxis,  y: yAxis, isRiverTile: false})
+      }
+    })
+    mapRows.push([mapTiles]);
+    mapTiles = [];
+    riverOffset = riverOffset + riverTilesPerRow;
   })
-      counter++;
-    } else {
-      return (mapTiles.push({y: yAxis, x: counter, isRiverTile: false})); 
-    }
-  })
-    return(mapTiles);
+    return(mapRows);
   };

@@ -1,3 +1,3 @@
-import Grid from './';
+import Map from './';
 
-export default Grid;
+export default Map;
