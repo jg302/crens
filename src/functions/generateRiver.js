@@ -7,21 +7,28 @@ export const generateMap = mapData => {
   let mapTiles = [];
   const riverPitch = Math.abs((mapData.river.startY - 1) - mapData.river.endY);
   const riverTilesPerRow = Math.round(mapData.y / riverPitch);
-  let riverOffset = 0;
+  let riverTileOffset = 0;
+  let isRiverRow;
+  let riverRowCount = 0;
 
   Array(mapData.y).fill(0).map((item, yAxis) => {
-    
+    if (yAxis >= mapData.river.startY && yAxis <= mapData.river.endY) {
+      riverTileOffset = riverTilesPerRow * riverRowCount;
+      riverRowCount ++;
+      isRiverRow = true;
+    } else isRiverRow = false;
+
     Array(mapData.x).fill(0).map((item, xAxis) => {
 
-      if (yAxis <= mapData.river.startY && xAxis <= riverTilesPerRow + riverOffset) {
+      if ((xAxis >= riverTileOffset && xAxis <= riverTileOffset + riverTilesPerRow) && isRiverRow === true) {
         mapTiles.push({x: xAxis,  y: yAxis, isRiverTile: true})
       } else {
         mapTiles.push({x: xAxis,  y: yAxis, isRiverTile: false})
       }
     })
+
     mapRows.push([mapTiles]);
     mapTiles = [];
-    riverOffset = riverOffset + riverTilesPerRow;
   })
     return(mapRows);
   };
