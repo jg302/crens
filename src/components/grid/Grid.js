@@ -1,15 +1,17 @@
 import React from 'react';
-import Row from '../row/Row';
-//import { map1 } from '../../data/maps';
+import Tile from '../tile/Tile';
+import { generateMap } from '../../functions/generateRiver';
 
 const Grid = () => {
-const map = {rows: 50, columns: 50, river: {startY: 20, endY: 22}};
+    const mapData = {x: 40, y: 40, river: {startY: 20, endY: 22}};
+    const mapTiles = generateMap(mapData);
+
+    console.log(mapTiles);
 
 return (
-
-Array(map.rows).fill(0).map((eachRow, index ) => {
+mapTiles.map((eachTile, index ) => {
     return (
-        <Row y={index} river={map.river} tileCount={map.columns} />
+        <Tile {...eachTile} key={index} />
     );
 })
 
